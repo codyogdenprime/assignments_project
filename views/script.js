@@ -36,24 +36,25 @@ var displayStuff = function() {
 };
 
 
-var addAssignment = function() {
+var addAssignment = function( e ) {
+
+	e.preventDefault();
+
+	var obj = {			assignment_number: Number( $("#assignment_number").val() ),
+			student_name: String( $("#student_name").val() ),
+			score: Number( $("#score").val() )};
+
+			console.log( 'obj', obj );
 
 	$.ajax({
 		url: '/api',
 		type: 'POST',
 		dataType: 'json',
-		data: {
+		data: obj,
+		success: function() {
 
-		},
-	})
-	.done(function() {
-		console.log("success");
-	})
-	.fail(function() {
-		console.log("error");
-	})
-	.always(function() {
-		console.log("complete");
+			displayStuff();
+		}
 	});
 	
 
