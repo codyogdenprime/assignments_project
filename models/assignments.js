@@ -7,7 +7,6 @@ var assignment = new Schema({
 	student_name: { type: String, required: true },
 	score: { type: Number },
 	date_completed: { type: Date }
-
 });
 
 var Assignment = mongoose.model( 'assignments', assignment );
