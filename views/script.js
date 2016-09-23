@@ -10,6 +10,16 @@ var deleteAssignment = function() {
 
 	console.log( 'Delete:', $( this ).data() );
 
+	$.ajax({
+		url: '/api?id=' + $( this ).data( '_id' ),
+		type: 'DELETE',
+		success: function( data ) {
+			console.log( 'Deleted:', data );
+			displayStuff();
+		}
+	});
+	
+
 };
 
 var displayStuff = function() {
@@ -34,6 +44,12 @@ var displayStuff = function() {
 				var btn = $('<button />').data( data[i] ).html( 'Delete' );
 
 					btn.on( 'click', deleteAssignment );
+
+				var editBtn = $('<button />').data( data[i] ).html( 'Edit' );
+
+					editBtn.on( 'click', editForm );
+
+				li.append( editBtn );
 
 				li.append( btn );
 

@@ -53,6 +53,20 @@ assignment.route( '/api' )
 
 	} );
 
+})
+.delete( ( req, res ) => {
+
+	console.log( 'DELETE /api', req.query );
+
+	Assignment.findByIdAndRemove( req.query.id, ( err, result ) => {
+
+		if( err )
+			return console.log( 'MongoDB Error:', err );
+
+		res.send( result );
+
+	} );
+
 });
 
 module.exports = assignment;
