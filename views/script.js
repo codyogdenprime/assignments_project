@@ -6,6 +6,12 @@ $(document).ready( function() {
 	
 });
 
+var deleteAssignment = function() {
+
+	console.log( 'Delete:', $( this ).data() );
+
+};
+
 var displayStuff = function() {
 
 		$.ajax({
@@ -24,6 +30,12 @@ var displayStuff = function() {
 				var stuff = ( data[i].assignment_number || 'No Assignment Number' ) + ' - ' + data[i].student_name + ' - ' + ( data[i].score || ' No Score ' ) + ' - ' + data[i].date_completed;
 
 				li.html( stuff );
+
+				var btn = $('<button />').data( data[i] ).html( 'Delete' );
+
+					btn.on( 'click', deleteAssignment );
+
+				li.append( btn );
 
 				ul.append( li );
 			}

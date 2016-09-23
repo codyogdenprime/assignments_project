@@ -13,8 +13,6 @@ const MongoDB = mongoose.connect( mongoURI ).connection;
 app.use( express.static( 'node_modules/jquery/dist' ) );
 app.use( express.static( 'views' ) );
 
-const Assignment = require( './models/assignments' );
-
 MongoDB.on( 'error', ( err ) => {
     console.log( 'mongodb connection error:', err);
 });
@@ -26,39 +24,11 @@ MongoDB.once( 'open', () => {
     } );
 } );
 
-app.route( '/api' )
-.get( ( req, res ) => {
+var index = require( './routes/index' );
 
-	console.log( 'GET /api' );
+app.use( '/', index );
 
-	Assignment.find( ( err, result ) => {
+var assignments = require( './routes/assignments' );
 
-		if( err )
-			return	console.log( 'MongoDB Err:', err );
+app.use( '/', assignments );
 
-		res.send( result );
-
-	});
-
-})
-.post( ( req, res ) => {
-
-	console.log( 'POST /api', req.body );
-
-	var newEntry = new Assignment({
-		assignment_number: req.body.assignment_number,
-		student_name: req.body.student_name,
-		score: req.body.score,
-		date_completed: new Date()
-	});
-
-	newEntry.save( ( err, result ) => {
-
-		if( err )
-			return	console.log( 'Mongo Err:', err );
-
-		res.send( result );
-
-	} );
-
-});
