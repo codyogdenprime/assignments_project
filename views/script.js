@@ -1,8 +1,12 @@
 $(document).ready( function() {
 
+	$('.hidden-edit').hide();
+
 	displayStuff();
 
 	$("#assignment").on('submit', addAssignment);
+
+	$("#edit").on( 'submit', editSubmit );
 	
 });
 
@@ -18,7 +22,61 @@ var deleteAssignment = function() {
 			displayStuff();
 		}
 	});
+
+};
+
+var editForm = function() {
+
+	console.log( 'Edit button clicked!', $( this ).data() );
+
+	$(".hidden-edit").show();
+
+	$("#assignment_number_edit").val( $( this ).data('assignment_number'));
+	$("#student_name_edit").val( $( this ).data('student_name'));
+	$("#score_edit").val( $( this ).data('score'));
+
+	$("#edit").data( $( this ).data() );
+
+};
+
+var editSubmit = function( event ) {
+
+	event.preventDefault();
+
+	console.log( 'Submitting edited assignment' );
+
+	var id = $( "#edit" ).data( '_id' );
+
+	var obj = {
+
+		_id: id,
+		assignment_number: $("#assignment_number_edit").val(),
+		student_name: $("#student_name_edit").val(),
+		score: $("#score_edit").val()
+
+	};
+
+	$.ajax({
+		url: '/api',
+		type: 'PUT',
+		dataType: 'json',
+		data: obj,
+		success: function( data ) {
+
+			console.log( 'Edited!!', data );
+
+			$("#assignment_number_edit").val('');
+			$("#student_name_edit").val('');
+			$("#score_edit").val('');
+
+			$(".hidden-edit").hide();
+
+			displayStuff();
+
+		}
+	});
 	
+		
 
 };
 

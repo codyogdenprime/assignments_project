@@ -5,8 +5,17 @@
 		<title>My Stuff</title>
 		<script src="jquery.min.js"></script>
 		<script src="script.js"></script>
+		<link href="style.css" rel="stylesheet" />
 	</head>
 	<body>
+	<div class="hidden-edit">
+		<form id="edit">
+			<input id="assignment_number_edit" type="number" placeholder="Assignment Number">
+			<input id="student_name_edit" type="text" placeholder="Student Name">
+			<input id="score_edit" type="number" placeholder="Score">
+			<input type="submit" />
+		</form>
+	</div>
 	<form id="assignment">
 		<input id="assignment_number" type="number" placeholder="Assignment Number">
 		<input id="student_name" type="text" placeholder="Student Name">

@@ -67,6 +67,26 @@ assignment.route( '/api' )
 
 	} );
 
-});
+})
+.put( ( req, res ) => {
+
+	console.log( 'PUT /api', req.body );
+
+	Assignment.findByIdAndUpdate( req.body._id, {
+		assignment_number: req.body.assignment_number,
+		student_name: req.body.student_name,
+		score: req.body.score
+	}, { multi: false }, ( err, result ) => {
+
+		if( err )
+			return console.log( 'MongoDB Error:', err );
+
+		res.send( result );
+
+	});
+
+
+
+} );
 
 module.exports = assignment;
